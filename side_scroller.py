@@ -18,8 +18,8 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 # Other variable for use in the progam
-SCREEN_WIDTH = 600
-SCREEN_LENGTH = 400
+SCREEN_WIDTH = 1000
+SCREEN_LENGTH = 700
 SPEED = 5
 SCORE = 0
 
@@ -28,7 +28,7 @@ font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
 
-background = pygame.image.load("ocean_2.png")
+background = pygame.transform.scale(pygame.image.load("realistic_ocean.png"), (SCREEN_WIDTH, SCREEN_LENGTH))
 
 # Create a white screen
 DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_LENGTH))
@@ -38,7 +38,7 @@ pygame.display.set_caption("The Ocean")
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("pirate_ship.jpg")
+        self.image = pygame.image.load("pirate_ship.png")
         self.rect = self.image.get_rect()
         self.rect.center=(random.randint(40, SCREEN_WIDTH-40), 0)
 
@@ -53,9 +53,9 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("player_boat.png")
+        self.image = pygame.transform.scale(pygame.image.load("player_boat.png", (100, 100))
         self.rect = self.image.get_rect()
-        self.rect.center = (160, 520)
+        self.rect.center = (0, 700)
     
     def move(self):
         pressed_keys = pygame.key.get_pressed()
@@ -89,7 +89,6 @@ pygame.time.set_timer(INC_SPEED, 1000)
 # Game loop
 while True:
 
-    DISPLAYSURF.fill(WHITE)
     #Cycles through all events occuring
     for event in pygame.event.get():
         if event.type == INC_SPEED:
