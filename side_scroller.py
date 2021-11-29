@@ -53,9 +53,9 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load("player_boat.png", (100, 100))
+        self.image = pygame.transform.scale(pygame.image.load("player_boat.png"), (100, 100)) ########Search for warning
         self.rect = self.image.get_rect()
-        self.rect.center = (0, 700)
+        self.rect.center = (500, 600)
     
     def move(self):
         pressed_keys = pygame.key.get_pressed()
