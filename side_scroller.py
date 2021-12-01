@@ -28,7 +28,7 @@ font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = font.render("Game Over", True, BLACK)
 
-background = pygame.transform.scale(pygame.image.load("realistic_ocean.png"), (SCREEN_WIDTH, SCREEN_LENGTH))
+background = pygame.transform.scale(pygame.image.load("ocean_2.jpg"), (SCREEN_WIDTH, SCREEN_LENGTH))
 
 # Create a white screen
 DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_LENGTH))
@@ -39,6 +39,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("pirate_ship.png")
+        self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
         self.rect.center=(random.randint(40, SCREEN_WIDTH-40), 0)
 
@@ -48,12 +49,13 @@ class Enemy(pygame.sprite.Sprite):
         if (self.rect.top > 600):
             SCORE += 1
             self.rect.top = 0
-            self.rect.center = (random.randint(30, SCREEN_WIDTH - 40), 0)
+            self.rect.center = (random.randint(30, SCREEN_LENGTH - 40), 0)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load("player_boat.png"), (100, 100)) ########Search for warning
+        self.image = pygame.image.load("player_boat.png")
+        self.image = pygame.transform.scale(self.image, (50, 50)) ########Search for warning
         self.rect = self.image.get_rect()
         self.rect.center = (500, 600)
     
@@ -65,11 +67,11 @@ class Player(pygame.sprite.Sprite):
             #self.rect.move_ip(0,5)
 
         if self.rect.left > 0:
-            if pressed_keys[K_LEFT]:
-                self.rect.move_ip(-5, 0)
+            if pressed_keys[K_UP]:
+                self.rect.move_ip(0, -5)
         if self.rect.right < SCREEN_WIDTH:
-            if pressed_keys[K_RIGHT]:
-                self.rect.move_ip(5, 0)
+            if pressed_keys[K_DOWN]:
+                self.rect.move_ip(0, 5)
 
 # Setting up Sprites
 P1 = Player()
