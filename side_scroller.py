@@ -41,15 +41,15 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.image.load("pirate_ship.png")
         self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
-        self.rect.center=(random.randint(40, SCREEN_WIDTH-40), 0)
+        self.rect.center=(SCREEN_WIDTH, random.randint(30, SCREEN_LENGTH - 40))
 
     def move(self):
         global SCORE
-        self.rect.move_ip(0, SPEED)
-        if (self.rect.top > 600):
+        self.rect.move_ip(-SPEED, 0)
+        if (self.rect.left < 0):
             SCORE += 1
             self.rect.top = 0
-            self.rect.center = (random.randint(30, SCREEN_LENGTH - 40), 0)
+            self.rect.center = (SCREEN_WIDTH, random.randint(30, SCREEN_LENGTH - 40))
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -57,7 +57,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("player_boat.png")
         self.image = pygame.transform.scale(self.image, (50, 50)) ########Search for warning
         self.rect = self.image.get_rect()
-        self.rect.center = (500, 600)
+        self.rect.center = (40, 350)
     
     def move(self):
         pressed_keys = pygame.key.get_pressed()
@@ -76,13 +76,15 @@ class Player(pygame.sprite.Sprite):
 # Setting up Sprites
 P1 = Player()
 E1 = Enemy()
-
+E2 = Enemy()
 #Creating Sprites Groups
 enemies = pygame.sprite.Group()
 enemies.add(E1)
+enemies.add(E2)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(P1)
 all_sprites.add(E1)
+all_sprites.add(E2)
 
 #Adding a new user event
 INC_SPEED = pygame.USEREVENT + 2
