@@ -47,7 +47,7 @@ class Enemy(pygame.sprite.Sprite):
         global SCORE
         self.rect.move_ip(-SPEED, 0)
         if (self.rect.left < 0):
-            SCORE += 1
+            SCORE += .5
             self.rect.top = 0
             self.rect.center = (SCREEN_WIDTH, random.randint(30, SCREEN_LENGTH - 40))
 
@@ -86,10 +86,12 @@ all_sprites.add(P1)
 all_sprites.add(E1)
 all_sprites.add(E2)
 
+
 #Adding a new user event
 INC_SPEED = pygame.USEREVENT + 2
 pygame.time.set_timer(INC_SPEED, 1000)
 
+pygame.mixer.Sound("waves.mp3").play()
 # Game loop
 while True:
 
@@ -113,7 +115,8 @@ while True:
 
     # To be run if collision occurs between player and enemy
     if pygame.sprite.spritecollideany(P1, enemies):
-        #pygame.mixer.Sound('crash.wav').play()
+        sound_running = False
+        pygame.mixer.Sound("boat_crash.mp3").play()
         time.sleep(0.5)
 
         DISPLAYSURF.fill(RED)
